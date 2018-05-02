@@ -7,10 +7,8 @@ import java.util.List;
 public class ContextReader {
 
 	
-	public static final String CONTEXT_FILE = "src/cxt.cxt";
 	
-	
-	public static List<Incidences> readContext() {
+	public static List<Incidences> readContext(String contextFile) {
 			
 			List<Incidences> incidences = new ArrayList<>();
 			
@@ -19,7 +17,7 @@ public class ContextReader {
 			FileReader fr = null;
 	
 			try {
-				fr = new FileReader(CONTEXT_FILE);
+				fr = new FileReader(contextFile);
 				br = new BufferedReader(fr);
 	
 				String line;

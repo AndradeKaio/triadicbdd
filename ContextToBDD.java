@@ -6,8 +6,8 @@ import net.sf.javabdd.BDDFactory;
 /**
  * PONTIFICIA UNIVERSIDADE CATOLICA DE MINAS GERAIS
  * This program implements a representation of a triadic context (U, T, K) using a Binary Decision Diagram structure.
- * The context given follows the TRIAS algoritm pattern in a text file.
- * Some operations was implement to recover attributes and condicions shared by some objects.
+ * The context given follows the TRIAS algorithm pattern in a text file.
+ * Some operations was implement to recover attributes and condition shared by some objects.
  * 
  * @author  Kaio Henrique
  * @version 1.0
@@ -70,11 +70,11 @@ public class ContextToBDD {
 	
 	
 	/**
-	 * Receibe current attribute and condicion and returns
-	 * the bdd var position.
+	 * Receive current attribute and condition and returns
+	 * the BDD var position.
 	 * @param a current attribute
-	 * @param c current doncidcion
-	 * @return position of a bdd var
+	 * @param c current condition
+	 * @return position of a BDD var
 	 */
 	public int position(int a, int c) {
 		return (c*atrDim)- Math.abs(a-atrDim);
@@ -117,7 +117,7 @@ public class ContextToBDD {
 					}
 
 				}
-
+				// if object isn't initialized
 				if(iObj[o]) 
 					// current object receives a AND operation
 					obj[o] = obj[o].and(var);
@@ -139,8 +139,8 @@ public class ContextToBDD {
 	
 	
 	/**
-	 * Receives a atribute index and return
-	 * all objects that share that atribute.
+	 * Receives a attribute index and return
+	 * all objects that share that attribute.
 	 * @param atr attribute search
 	 * @return BDD resulted by AND operation.
 	 */
@@ -153,15 +153,17 @@ public class ContextToBDD {
 	}
 	
 	/**
-	 * 
+	 * Receive a list of attributes and return 
+	 * the objects that share theses attributes.
 	 * @param atr
 	 * @return
 	 */
 	public BDD recoverAtr(int [] atr) {
 		BDD result = null;
-
-		for (int i = 0; i < atr.length; i++) {
-			
+		
+		result = tAtr[atr[0]];
+		for (int i = 1; i < atr.length; i++) {
+			result = result.and(tAtr[atr[i]]);
 		}
 		
 		return context.and(result);
